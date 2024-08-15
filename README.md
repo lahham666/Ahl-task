@@ -29,7 +29,7 @@ This file implements CloudTrail and CloudWatch to monitor and log web server and
 ####  5-   Plan the deployment terraform plan 
 ####  6-   Apply the changes  terraform apply
 
-## all infrastructure was deploy into eu-west-1 (ireland) region  
+## all the infrastructure was deployed into eu-west-1 (ireland) region  
 there are terraformplanresults.txt that display the full output of terraform plan command 
 
  feel free to reach out incase of any inquiries 
