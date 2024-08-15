@@ -1,7 +1,7 @@
-This devops assessment task  was developed for Tucows to be sent by ahl logics
-This Terraform module deploys a 2-tier application architecture on AWS, consisting of API and database servers. It adheres to best practices for VPC design, security, and operational efficiency. The deployment includes logging and alerting capabilities for monitoring and troubleshooting.
-<br>
-the terraform include 
+# This devops assessment task  was developed for Tucows to be sent by ahl logics
+  This Terraform module deploys a 2-tier application architecture on AWS, consisting of API and database servers. It adheres to best practices for VPC design, security, and operational efficiency. The deployment includes logging and alerting capabilities for monitoring and troubleshooting.
+
+## the terraform include 
 8 files of resoures creation 
 provider.tf
 This file defines the Terraform providers used to interact with AWS services
@@ -20,7 +20,7 @@ cloudtrail.tf
 implment cloudtrail and cloudwatch to monitior and logging the websever and api calls happen in the infrastructure
 
 
-  Usage
+  ## Usage
  1 -  glone the repo 
  2 -  Navigate to the module directory:
  3 -  Configure variables: Update the variables.tf file with your desired values
@@ -28,7 +28,7 @@ implment cloudtrail and cloudwatch to monitior and logging the websever and api 
  5-   Plan the deployment terraform plan 
  6    Apply the changes  terraform apply
 
-all infrastructure was deploy into eu-west-1 (ireland) region  
+## all infrastructure was deploy into eu-west-1 (ireland) region  
 there are terraformplanresults.txt that display the full output of terraform plan command 
 
  feel free to reach out incase of any inquiries 
