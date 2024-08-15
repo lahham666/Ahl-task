@@ -1,0 +1,813 @@
+PS C:\Users\i7-8700K\Desktop\Ahl-Task> terraform plan
+data.aws_region.current: Reading...
+data.aws_caller_identity.current: Reading...
+data.aws_partition.current: Reading...
+data.aws_region.current: Read complete after 0s [id=eu-west-1]
+data.aws_partition.current: Read complete after 0s [id=aws]   
+data.aws_caller_identity.current: Read complete after 1s [id=902072766062]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+ <= read (data resources)
+
+Terraform will perform the following actions:
+
+  # data.aws_iam_policy_document.main will be read during apply
+  # (config refers to values not yet known)
+ <= data "aws_iam_policy_document" "main" {
+      + id   = (known after apply)
+      + json = (known after apply)
+
+      + statement {
+          + actions   = [
+              + "s3:GetBucketAcl",
+            ]
+          + effect    = "Allow"
+          + resources = [
+              + (known after apply),
+            ]
+          + sid       = "AWSCloudTrailAclCheck"
+
+          + condition {
+              + test     = "StringEquals"
+              + values   = [
+                  + "arn:aws:cloudtrail:eu-west-1:902072766062:trail/main",
+                ]
+              + variable = "aws:SourceArn"
+            }
+
+          + principals {
+              + identifiers = [
+                  + "cloudtrail.amazonaws.com",
+                ]
+              + type        = "Service"
+            }
+        }
+      + statement {
+          + actions   = [
+              + "s3:PutObject",
+            ]
+          + effect    = "Allow"
+          + resources = [
+              + (known after apply),
+            ]
+          + sid       = "AWSCloudTrailWrite"
+
+          + condition {
+              + test     = "StringEquals"
+              + values   = [
+                  + "arn:aws:cloudtrail:eu-west-1:902072766062:trail/main",
+                ]
+              + variable = "aws:SourceArn"
+            }
+          + condition {
+              + test     = "StringEquals"
+              + values   = [
+                  + "bucket-owner-full-control",
+                ]
+              + variable = "s3:x-amz-acl"
+            }
+
+          + principals {
+              + identifiers = [
+                  + "cloudtrail.amazonaws.com",
+                ]
+              + type        = "Service"
+            }
+        }
+    }
+
+  # aws_cloudtrail.main will be created
+  + resource "aws_cloudtrail" "main" {
+      + arn                           = (known after apply)
+      + enable_log_file_validation    = false
+      + enable_logging                = true
+      + home_region                   = (known after apply)
+      + id                            = (known after apply)
+      + include_global_service_events = false
+      + is_multi_region_trail         = false
+      + is_organization_trail         = false
+      + name                          = "main"
+      + s3_bucket_name                = (known after apply)
+      + s3_key_prefix                 = "prefix"
+      + tags_all                      = (known after apply)
+    }
+
+  # aws_db_instance.two-tier-db-1 will be created
+  + resource "aws_db_instance" "two-tier-db-1" {
+      + address                               = (known after apply)
+      + allocated_storage                     = 20
+      + allow_major_version_upgrade           = true
+      + apply_immediately                     = false
+      + arn                                   = (known after apply)
+      + auto_minor_version_upgrade            = true
+      + availability_zone                     = (known after apply)
+      + backup_retention_period               = 35
+      + backup_window                         = "22:00-23:00"
+      + ca_cert_identifier                    = (known after apply)
+      + character_set_name                    = (known after apply)
+      + copy_tags_to_snapshot                 = false
+      + db_name                               = "two_tier_db1"
+      + db_subnet_group_name                  = "two-tier-db-sub"
+      + delete_automated_backups              = true
+      + endpoint                              = (known after apply)
+      + engine                                = "mysql"
+      + engine_version                        = "8.0"
+      + engine_version_actual                 = (known after apply)
+      + hosted_zone_id                        = (known after apply)
+      + id                                    = (known after apply)
+      + identifier                            = (known after apply)
+      + identifier_prefix                     = (known after apply)
+      + instance_class                        = "db.t3.micro"
+      + iops                                  = (known after apply)
+      + kms_key_id                            = (known after apply)
+      + latest_restorable_time                = (known after apply)
+      + license_model                         = (known after apply)
+      + listener_endpoint                     = (known after apply)
+      + maintenance_window                    = "sat:00:00-sat:03:00"
+      + master_user_secret                    = (known after apply)
+      + master_user_secret_kms_key_id         = (known after apply)
+      + monitoring_interval                   = 0
+      + monitoring_role_arn                   = (known after apply)
+      + multi_az                              = false
+      + name                                  = (known after apply)
+      + nchar_character_set_name              = (known after apply)
+      + network_type                          = (known after apply)
+      + option_group_name                     = (known after apply)
+      + parameter_group_name                  = "default.mysql8.0"
+      + password                              = (sensitive value)
+      + performance_insights_enabled          = false
+      + performance_insights_kms_key_id       = (known after apply)
+      + performance_insights_retention_period = (known after apply)
+      + port                                  = (known after apply)
+      + publicly_accessible                   = false
+      + replica_mode                          = (known after apply)
+      + replicas                              = (known after apply)
+      + resource_id                           = (known after apply)
+      + skip_final_snapshot                   = true
+      + snapshot_identifier                   = (known after apply)
+      + status                                = (known after apply)
+      + storage_throughput                    = (known after apply)
+      + storage_type                          = "gp2"
+      + tags_all                              = (known after apply)
+      + timezone                              = (known after apply)
+      + username                              = "admin"
+      + vpc_security_group_ids                = (known after apply)
+    }
+
+  # aws_db_subnet_group.two-tier-db-sub will be created
+  + resource "aws_db_subnet_group" "two-tier-db-sub" {
+      + arn                     = (known after apply)
+      + description             = "Managed by Terraform"
+      + id                      = (known after apply)
+      + name                    = "two-tier-db-sub"
+      + name_prefix             = (known after apply)
+      + subnet_ids              = (known after apply)
+      + supported_network_types = (known after apply)
+      + tags_all                = (known after apply)
+      + vpc_id                  = (known after apply)
+    }
+
+  # aws_eip.two-tier-web-server-1-eip will be created
+  + resource "aws_eip" "two-tier-web-server-1-eip" {
+      + allocation_id        = (known after apply)
+      + association_id       = (known after apply)
+      + carrier_ip           = (known after apply)
+      + customer_owned_ip    = (known after apply)
+      + domain               = (known after apply)
+      + id                   = (known after apply)
+      + instance             = (known after apply)
+      + network_border_group = (known after apply)
+      + network_interface    = (known after apply)
+      + private_dns          = (known after apply)
+      + private_ip           = (known after apply)
+      + public_dns           = (known after apply)
+      + public_ip            = (known after apply)
+      + public_ipv4_pool     = (known after apply)
+      + tags_all             = (known after apply)
+      + vpc                  = true
+    }
+
+  # aws_eip.two-tier-web-server-2-eip will be created
+  + resource "aws_eip" "two-tier-web-server-2-eip" {
+      + allocation_id        = (known after apply)
+      + association_id       = (known after apply)
+      + carrier_ip           = (known after apply)
+      + customer_owned_ip    = (known after apply)
+      + domain               = (known after apply)
+      + id                   = (known after apply)
+      + instance             = (known after apply)
+      + network_border_group = (known after apply)
+      + network_interface    = (known after apply)
+      + private_dns          = (known after apply)
+      + private_ip           = (known after apply)
+      + public_dns           = (known after apply)
+      + public_ip            = (known after apply)
+      + public_ipv4_pool     = (known after apply)
+      + tags_all             = (known after apply)
+      + vpc                  = true
+    }
+
+  # aws_instance.two-tier-web-server-1 will be created
+  + resource "aws_instance" "two-tier-web-server-1" {
+      + ami                                  = "ami-0932dacac40965a65"
+      + arn                                  = (known after apply)
+      + associate_public_ip_address          = (known after apply)
+      + availability_zone                    = (known after apply)
+      + cpu_core_count                       = (known after apply)
+      + cpu_threads_per_core                 = (known after apply)
+      + disable_api_stop                     = (known after apply)
+      + disable_api_termination              = (known after apply)
+      + ebs_optimized                        = (known after apply)
+      + get_password_data                    = false
+      + host_id                              = (known after apply)
+      + host_resource_group_arn              = (known after apply)
+      + iam_instance_profile                 = (known after apply)
+      + id                                   = (known after apply)
+      + instance_initiated_shutdown_behavior = (known after apply)
+      + instance_state                       = (known after apply)
+      + instance_type                        = "t2.micro"
+      + ipv6_address_count                   = (known after apply)
+      + ipv6_addresses                       = (known after apply)
+      + key_name                             = "keyforwebserverrs"
+      + monitoring                           = (known after apply)
+      + outpost_arn                          = (known after apply)
+      + password_data                        = (known after apply)
+      + placement_group                      = (known after apply)
+      + placement_partition_number           = (known after apply)
+      + primary_network_interface_id         = (known after apply)
+      + private_dns                          = (known after apply)
+      + private_ip                           = (known after apply)
+      + public_dns                           = (known after apply)
+      + public_ip                            = (known after apply)
+      + secondary_private_ips                = (known after apply)
+      + security_groups                      = (known after apply)
+      + source_dest_check                    = true
+      + subnet_id                            = (known after apply)
+      + tags                                 = {
+          + "Name" = "two-tier-web-server-1"
+        }
+      + tags_all                             = {
+          + "Name" = "two-tier-web-server-1"
+        }
+      + tenancy                              = (known after apply)
+      + user_data                            = "8abc9d5a12d730d8e371e4b070621cb736422f68"
+      + user_data_base64                     = (known after apply)
+      + user_data_replace_on_change          = false
+      + vpc_security_group_ids               = (known after apply)
+    }
+
+  # aws_instance.two-tier-web-server-2 will be created
+  + resource "aws_instance" "two-tier-web-server-2" {
+      + ami                                  = "ami-0932dacac40965a65"
+      + arn                                  = (known after apply)
+      + associate_public_ip_address          = (known after apply)
+      + availability_zone                    = (known after apply)
+      + cpu_core_count                       = (known after apply)
+      + cpu_threads_per_core                 = (known after apply)
+      + disable_api_stop                     = (known after apply)
+      + disable_api_termination              = (known after apply)
+      + ebs_optimized                        = (known after apply)
+      + get_password_data                    = false
+      + host_id                              = (known after apply)
+      + host_resource_group_arn              = (known after apply)
+      + iam_instance_profile                 = (known after apply)
+      + id                                   = (known after apply)
+      + instance_initiated_shutdown_behavior = (known after apply)
+      + instance_state                       = (known after apply)
+      + instance_type                        = "t2.micro"
+      + ipv6_address_count                   = (known after apply)
+      + ipv6_addresses                       = (known after apply)
+      + key_name                             = "keyforwebserverrs"
+      + monitoring                           = (known after apply)
+      + outpost_arn                          = (known after apply)
+      + password_data                        = (known after apply)
+      + placement_group                      = (known after apply)
+      + placement_partition_number           = (known after apply)
+      + primary_network_interface_id         = (known after apply)
+      + private_dns                          = (known after apply)
+      + private_ip                           = (known after apply)
+      + public_dns                           = (known after apply)
+      + public_ip                            = (known after apply)
+      + secondary_private_ips                = (known after apply)
+      + security_groups                      = (known after apply)
+      + source_dest_check                    = true
+      + subnet_id                            = (known after apply)
+      + tags                                 = {
+          + "Name" = "two-tier-web-server-2"
+        }
+      + tags_all                             = {
+          + "Name" = "two-tier-web-server-2"
+        }
+      + tenancy                              = (known after apply)
+      + user_data                            = "3ee5d9e7c6ca908326a15826e1dc29f7aa1c6daa"
+      + user_data_base64                     = (known after apply)
+      + user_data_replace_on_change          = false
+      + vpc_security_group_ids               = (known after apply)
+    }
+
+  # aws_internet_gateway.two-tier-igw will be created
+  + resource "aws_internet_gateway" "two-tier-igw" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + owner_id = (known after apply)
+      + tags     = {
+          + "Name" = "two-tier-igw"
+        }
+      + tags_all = {
+          + "Name" = "two-tier-igw"
+        }
+      + vpc_id   = (known after apply)
+    }
+
+  # aws_lb.two-tier-lb will be created
+  + resource "aws_lb" "two-tier-lb" {
+      + arn                                         = (known after apply)
+      + arn_suffix                                  = (known after apply)
+      + desync_mitigation_mode                      = "defensive"
+      + dns_name                                    = (known after apply)
+      + drop_invalid_header_fields                  = false
+      + enable_deletion_protection                  = false
+      + enable_http2                                = true
+      + enable_tls_version_and_cipher_suite_headers = false
+      + enable_waf_fail_open                        = false
+      + enable_xff_client_port                      = false
+      + id                                          = (known after apply)
+      + idle_timeout                                = 60
+      + internal                                    = false
+      + ip_address_type                             = (known after apply)
+      + load_balancer_type                          = "application"
+      + name                                        = "two-tier-lb"
+      + preserve_host_header                        = false
+      + security_groups                             = (known after apply)
+      + subnets                                     = (known after apply)
+      + tags                                        = {
+          + "Environment" = "two-tier-lb"
+        }
+      + tags_all                                    = {
+          + "Environment" = "two-tier-lb"
+        }
+      + vpc_id                                      = (known after apply)
+      + xff_header_processing_mode                  = "append"
+      + zone_id                                     = (known after apply)
+    }
+
+  # aws_lb_listener.two-tier-lb-listner will be created
+  + resource "aws_lb_listener" "two-tier-lb-listner" {
+      + arn               = (known after apply)
+      + id                = (known after apply)
+      + load_balancer_arn = (known after apply)
+      + port              = 80
+      + protocol          = "HTTP"
+      + ssl_policy        = (known after apply)
+      + tags_all          = (known after apply)
+
+      + default_action {
+          + order            = (known after apply)
+          + target_group_arn = (known after apply)
+          + type             = "forward"
+        }
+    }
+
+  # aws_lb_target_group.two-tier-lb-tg will be created
+  + resource "aws_lb_target_group" "two-tier-lb-tg" {
+      + arn                                = (known after apply)
+      + arn_suffix                         = (known after apply)
+      + connection_termination             = false
+      + deregistration_delay               = "300"
+      + id                                 = (known after apply)
+      + ip_address_type                    = (known after apply)
+      + lambda_multi_value_headers_enabled = false
+      + load_balancing_algorithm_type      = (known after apply)
+      + load_balancing_cross_zone_enabled  = (known after apply)
+      + name                               = "two-tier-lb-tg"
+      + port                               = 80
+      + preserve_client_ip                 = (known after apply)
+      + protocol                           = "HTTP"
+      + protocol_version                   = (known after apply)
+      + proxy_protocol_v2                  = false
+      + slow_start                         = 0
+      + tags_all                           = (known after apply)
+      + target_type                        = "instance"
+      + vpc_id                             = (known after apply)
+    }
+
+  # aws_lb_target_group.two-tier-loadb_target will be created
+  + resource "aws_lb_target_group" "two-tier-loadb_target" {
+      + arn                                = (known after apply)
+      + arn_suffix                         = (known after apply)
+      + connection_termination             = false
+      + deregistration_delay               = "300"
+      + id                                 = (known after apply)
+      + ip_address_type                    = (known after apply)
+      + lambda_multi_value_headers_enabled = false
+      + load_balancing_algorithm_type      = (known after apply)
+      + load_balancing_cross_zone_enabled  = (known after apply)
+      + name                               = "target"
+      + port                               = 80
+      + preserve_client_ip                 = (known after apply)
+      + protocol                           = "HTTP"
+      + protocol_version                   = (known after apply)
+      + proxy_protocol_v2                  = false
+      + slow_start                         = 0
+      + tags_all                           = (known after apply)
+      + target_type                        = "instance"
+      + vpc_id                             = (known after apply)
+    }
+
+  # aws_lb_target_group_attachment.two-tier-tg-attch-1 will be created
+  + resource "aws_lb_target_group_attachment" "two-tier-tg-attch-1" {
+      + id               = (known after apply)
+      + port             = 80
+      + target_group_arn = (known after apply)
+      + target_id        = (known after apply)
+    }
+
+  # aws_lb_target_group_attachment.two-tier-tg-attch-2 will be created
+  + resource "aws_lb_target_group_attachment" "two-tier-tg-attch-2" {
+      + id               = (known after apply)
+      + port             = 80
+      + target_group_arn = (known after apply)
+      + target_id        = (known after apply)
+    }
+
+  # aws_route_table.two-tier-rt will be created
+  + resource "aws_route_table" "two-tier-rt" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + route            = [
+          + {
+              + carrier_gateway_id         = ""
+              + cidr_block                 = "0.0.0.0/0"
+              + core_network_arn           = ""
+              + destination_prefix_list_id = ""
+              + egress_only_gateway_id     = ""
+              + gateway_id                 = (known after apply)
+              + instance_id                = ""
+              + ipv6_cidr_block            = ""
+              + local_gateway_id           = ""
+              + nat_gateway_id             = ""
+              + network_interface_id       = ""
+              + transit_gateway_id         = ""
+              + vpc_endpoint_id            = ""
+              + vpc_peering_connection_id  = ""
+            },
+        ]
+      + tags             = {
+          + "Name" = "two-tier-rt"
+        }
+      + tags_all         = {
+          + "Name" = "two-tier-rt"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # aws_route_table_association.two-tier-rt-as-1 will be created
+  + resource "aws_route_table_association" "two-tier-rt-as-1" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_route_table_association.two-tier-rt-as-2 will be created
+  + resource "aws_route_table_association" "two-tier-rt-as-2" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_s3_bucket.main will be created
+  + resource "aws_s3_bucket" "main" {
+      + acceleration_status         = (known after apply)
+      + acl                         = (known after apply)
+      + arn                         = (known after apply)
+      + bucket                      = "my-cloudtrail-bucket-for-ahl"
+      + bucket_domain_name          = (known after apply)
+      + bucket_prefix               = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = true
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + object_lock_enabled         = (known after apply)
+      + policy                      = (known after apply)
+      + region                      = (known after apply)
+      + request_payer               = (known after apply)
+      + tags_all                    = (known after apply)
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+    }
+
+  # aws_s3_bucket_policy.main will be created
+  + resource "aws_s3_bucket_policy" "main" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+      + policy = (known after apply)
+    }
+
+  # aws_security_group.two-tier-alb-sg will be created
+  + resource "aws_security_group" "two-tier-alb-sg" {
+      + arn                    = (known after apply)
+      + description            = "load balancer security group"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = ""
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = ""
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+            },
+        ]
+      + name                   = "two-tier-alb-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "two-tier-alb-sg"
+        }
+      + tags_all               = {
+          + "Name" = "two-tier-alb-sg"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # aws_security_group.two-tier-db-sg will be created
+  + resource "aws_security_group" "two-tier-db-sg" {
+      + arn                    = (known after apply)
+      + description            = "allow traffic from internet"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = ""
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = ""
+              + from_port        = 3306
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = (known after apply)
+              + self             = false
+              + to_port          = 3306
+            },
+          + {
+              + cidr_blocks      = [
+                  + "10.0.0.0/16",
+                ]
+              + description      = ""
+              + from_port        = 22
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = (known after apply)
+              + self             = false
+              + to_port          = 22
+            },
+        ]
+      + name                   = "two-tier-db-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags_all               = (known after apply)
+      + vpc_id                 = (known after apply)
+    }
+
+  # aws_security_group.two-tier-ec2-sg will be created
+  + resource "aws_security_group" "two-tier-ec2-sg" {
+      + arn                    = (known after apply)
+      + description            = "Allow traffic from VPC"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = ""
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = ""
+              + from_port        = 22
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 22
+            },
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = ""
+              + from_port        = 80
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 80
+            },
+          + {
+              + cidr_blocks      = []
+              + description      = ""
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+            },
+        ]
+      + name                   = "two-tier-ec2-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "two-tier-ec2-sg"
+        }
+      + tags_all               = {
+          + "Name" = "two-tier-ec2-sg"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # aws_subnet.two-tier-pub-sub-1 will be created
+  + resource "aws_subnet" "two-tier-pub-sub-1" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "eu-west-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.0.0/18"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = true
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Name" = "two-tier-pub-sub-1-eu-west-1-a"
+        }
+      + tags_all                                       = {
+          + "Name" = "two-tier-pub-sub-1-eu-west-1-a"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.two-tier-pub-sub-2 will be created
+  + resource "aws_subnet" "two-tier-pub-sub-2" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "eu-west-1b"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.64.0/18"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = true
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Name" = "two-tier-pub-sub-1-eu-west-1-b"
+        }
+      + tags_all                                       = {
+          + "Name" = "two-tier-pub-sub-1-eu-west-1-b"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.two-tier-pvt-sub-1 will be created
+  + resource "aws_subnet" "two-tier-pvt-sub-1" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "eu-west-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.128.0/18"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Name" = "two-tier-pvt-sub-1-eu-west-1a"
+        }
+      + tags_all                                       = {
+          + "Name" = "two-tier-pvt-sub-1-eu-west-1a"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.two-tier-pvt-sub-2 will be created
+  + resource "aws_subnet" "two-tier-pvt-sub-2" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "eu-west-1b"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.192.0/18"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Name" = "two-tier-pvt-sub-1-eu-west-1b"
+        }
+      + tags_all                                       = {
+          + "Name" = "two-tier-pvt-sub-1-eu-west-1b"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_vpc.two-tier-vpc will be created
+  + resource "aws_vpc" "two-tier-vpc" {
+      + arn                                  = (known after apply)
+      + cidr_block                           = "10.0.0.0/16"
+      + default_network_acl_id               = (known after apply)
+      + default_route_table_id               = (known after apply)
+      + default_security_group_id            = (known after apply)
+      + dhcp_options_id                      = (known after apply)
+      + enable_classiclink                   = (known after apply)
+      + enable_classiclink_dns_support       = (known after apply)
+      + enable_dns_hostnames                 = (known after apply)
+      + enable_dns_support                   = true
+      + enable_network_address_usage_metrics = (known after apply)
+      + id                                   = (known after apply)
+      + instance_tenancy                     = "default"
+      + ipv6_association_id                  = (known after apply)
+      + ipv6_cidr_block                      = (known after apply)
+      + ipv6_cidr_block_network_border_group = (known after apply)
+      + main_route_table_id                  = (known after apply)
+      + owner_id                             = (known after apply)
+      + tags                                 = {
+          + "Name" = "two-tier-vpc"
+        }
+      + tags_all                             = {
+          + "Name" = "two-tier-vpc"
+        }
+    }
+
+Plan: 27 to add, 0 to change, 0 to destroy.
