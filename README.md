@@ -18,16 +18,16 @@ this files defines the Security group the allowed port and the incoming and outc
 #### vpc.tf
 this files defines the structure of the vpc by 2 public subnet and 2 private subnet and private subnet for RDS and and load balancer to round robin the traffic into web server in public subnet 
 #### cloudtrail.tf
-implment cloudtrail and cloudwatch to monitior and logging the websever and api calls happen in the infrastructure
+This file implements CloudTrail and CloudWatch to monitor and log web server and API calls within the infrastructure.
 
 
   ## Usage
- 1 -  glone the repo 
- 2 -  Navigate to the module directory:
- 3 -  Configure variables: Update the variables.tf file with your desired values
- 4-   Initialize Terraform: by command terraform init 
- 5-   Plan the deployment terraform plan 
- 6    Apply the changes  terraform apply
+####  1 - glone the repo 
+####  2 -  Navigate to the module directory:
+####  3 -  Configure variables: Update the variables.tf file with your desired values
+####  4-   Initialize Terraform: by command terraform init 
+####  5-   Plan the deployment terraform plan 
+####  6-   Apply the changes  terraform apply
 
 ## all infrastructure was deploy into eu-west-1 (ireland) region  
 there are terraformplanresults.txt that display the full output of terraform plan command 
