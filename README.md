@@ -1,6 +1,6 @@
 This devops assessment task  was developed for Tucows to be sent by ahl logics
 This Terraform module deploys a 2-tier application architecture on AWS, consisting of API and database servers. It adheres to best practices for VPC design, security, and operational efficiency. The deployment includes logging and alerting capabilities for monitoring and troubleshooting.
-
+<br>
 the terraform include 
 8 files of resoures creation 
 provider.tf
