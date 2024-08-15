@@ -2,21 +2,22 @@
   This Terraform module deploys a 2-tier application architecture on AWS, consisting of API and database servers. It adheres to best practices for VPC design, security, and operational efficiency. The deployment includes logging and alerting capabilities for monitoring and troubleshooting.
 
 ## the terraform include 
-8 files of resoures creation 
-provider.tf
+### 8 files of resoures creation 
+
+#### provider.tf
 This file defines the Terraform providers used to interact with AWS services
-db-resources.tf
+#### db-resources.tf
 This file defines the resources of creation of RDS 
-ec2-resources.tf
+#### ec2-resources.tf
 this files defines the resources of creation of ec2 and LoadBalancer
-remote-state.tf
+#### remote-state.tf
 this files store the tfstate in S3
-security-group.tf
+#### security-group.tf
 this files defines the Security group the allowed port and the incoming and outcoming traffic
-variables.tf
-vpc.tf
+#### variables.tf
+#### vpc.tf
 this files defines the structure of the vpc by 2 public subnet and 2 private subnet and private subnet for RDS and and load balancer to round robin the traffic into web server in public subnet 
-cloudtrail.tf
+#### cloudtrail.tf
 implment cloudtrail and cloudwatch to monitior and logging the websever and api calls happen in the infrastructure
 
 
