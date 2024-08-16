@@ -22,7 +22,7 @@ resource "aws_security_group" "two-tier-ec2-sg" {
     from_port   = "22"
     to_port     = "22"
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["0.0.0.0/0"] #didn't mention my IP Address
   }
   egress {
     from_port   = "0"
@@ -76,7 +76,7 @@ resource "aws_security_group" "two-tier-db-sg" {
     to_port         = 3306
     protocol        = "tcp"
     security_groups = [aws_security_group.two-tier-ec2-sg.id]
-    cidr_blocks     = ["0.0.0.0/0"]
+    cidr_blocks     = ["0.0.0.0/0"] ##Didn't mention my IP address
   }
 
   ingress {
