@@ -15,7 +15,8 @@ resource "aws_instance" "two-tier-web-server-1" {
 
 
 sudo apt update
-sudo apt install nginx aws-cli -y
+sudo apt install nginx -y
+sudo apt install unzip -y
 curl -O https://s3.amazonaws.com/amazoncloudwatch-agent/amazon_linux/amd64/latest/amazon-cloudwatch-agent.zip
 unzip amazon-cloudwatch-agent.zip -d /opt/aws/amazon-cloudwatch-agent
 cat > /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json << EOF
@@ -77,7 +78,8 @@ resource "aws_instance" "two-tier-web-server-2" {
 #!/bin/bash
 
 sudo apt update
-sudo apt install nginx aws-cli -y
+sudo apt install nginx -y
+sudo apt install unzip -y
 curl -O https://s3.amazonaws.com/amazoncloudwatch-agent/amazon_linux/amd64/latest/amazon-cloudwatch-agent.zip
 unzip amazon-cloudwatch-agent.zip -d /opt/aws/amazon-cloudwatch-agent
 cat > /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json << EOF
@@ -115,6 +117,7 @@ cat > /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json << EOF
 sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a start
 sudo systemctl enable nginx
 sudo systemctl start nginx
+
 
 EOF
 
