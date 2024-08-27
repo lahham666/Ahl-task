@@ -113,7 +113,7 @@ resource "aws_lb_listener" "two-tier-lb-listner" {
 
 # Create Target group
 resource "aws_lb_target_group" "two-tier-loadb_target" {
-  name       = "target"
+  name       = "two-tier-lb-tg"
   depends_on = [aws_vpc.two-tier-vpc]
   port       = "80"
   protocol   = "HTTP"

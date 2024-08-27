@@ -66,3 +66,33 @@ data "aws_caller_identity" "current" {}
 data "aws_partition" "current" {}
 
 data "aws_region" "current" {}
+
+resource "aws_cloudwatch_metric_alarm" "ec2_cpu_utilization" {
+  alarm_name          = "EC2 CPU Utilization"
+  comparison_operator = "GreaterThanThreshold"
+  evaluation_periods  = 3
+  metric_name         = "CPUUtilization"
+  namespace           = "AWS/EC2"
+  period              = 60
+  statistic           = "Average"
+  threshold           = 80
+  treat_missing_data  = "breaching"
+  alarm_actions       = [aws_sns_topic.notification_topic.arn]
+  actions_enabled     = true
+
+  dimensions = {
+    "InstanceId" = aws_instance.two-tier-web-server-2.id
+  }
+}
+
+resource "aws_sns_topic" "notification_topic" {
+  name = "EC2_Notification_Topic"
+}
+
+resource "aws_sns_topic_subscription" "email_subscription" {
+  topic_arn = aws_sns_topic.notification_topic.arn
+  endpoint  = "ahmed@alahham.com"
+  protocol  = "email"
+}
+
+
